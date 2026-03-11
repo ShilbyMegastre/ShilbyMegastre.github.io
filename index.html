@@ -17,27 +17,21 @@
       --accent2-dev: #00e5c0;
       --accent-art: #fc5c9c;
       --accent2-art: #ffb347;
-      --accent: var(--accent-dev);
-      --accent2: var(--accent2-dev);
       --text: #e8e8f0;
       --muted: #5a5a72;
       --mono: 'Space Mono', monospace;
       --sans: 'Syne', sans-serif;
-      --transition-mode: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     html { scroll-behavior: smooth; }
     body { background: var(--bg); color: var(--text); font-family: var(--sans); overflow-x: hidden; cursor: none; }
 
     body.mode-art .hero-grid-bg {
-      background-image:
-        linear-gradient(rgba(252,92,156,0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(252,92,156,0.04) 1px, transparent 1px);
+      background-image: linear-gradient(rgba(252,92,156,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(252,92,156,0.04) 1px, transparent 1px);
     }
     body.mode-art .hero-glow { background: radial-gradient(circle, rgba(252,92,156,0.12) 0%, transparent 70%); }
-    body.mode-art .cursor-ring { border-color: rgba(252,92,156,0.5); }
     body.mode-art .btn-primary { background: var(--accent-art); box-shadow: 0 0 30px rgba(252,92,156,0.3); }
-    body.mode-art .btn-primary:hover { background: #fd7db4; box-shadow: 0 0 50px rgba(252,92,156,0.5); }
+    body.mode-art .btn-primary:hover { background: #fd7db4; }
     body.mode-art .scroll-line { background: linear-gradient(90deg, var(--accent-art), transparent); }
 
     /* Cursor */
@@ -50,15 +44,12 @@
     /* Nav */
     nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 4rem; background: rgba(10,10,15,0.85); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); }
     .nav-logo { font-family: var(--mono); font-size: 1rem; color: var(--accent-dev); letter-spacing: 0.05em; transition: color 0.4s; }
-    .nav-logo span { transition: color 0.4s; }
-    .mode-art .nav-logo { color: var(--accent-art); }
     .nav-right { display: flex; align-items: center; gap: 2.5rem; }
     .nav-links { display: flex; gap: 2.5rem; list-style: none; }
     .nav-links a { font-family: var(--mono); font-size: 0.78rem; color: var(--muted); text-decoration: none; letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.2s; position: relative; }
     .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: var(--accent2-dev); transition: width 0.3s ease; }
     .nav-links a:hover { color: var(--text); }
     .nav-links a:hover::after { width: 100%; }
-    .nav-art .nav-links a::after { background: var(--accent2-art); }
     .nav-art { display: none; }
 
     /* Toggle */
@@ -71,11 +62,10 @@
 
     /* Hero */
     #hero { min-height: 100vh; display: flex; align-items: center; padding: 0 4rem; padding-top: 80px; overflow: hidden; }
-    .hero-grid-bg { position: absolute; inset: 0; background-image: linear-gradient(rgba(124,92,252,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(124,92,252,0.04) 1px, transparent 1px); background-size: 60px 60px; transition: background-image 0.5s; }
-    .hero-glow { position: absolute; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(124,92,252,0.12) 0%, transparent 70%); top: 50%; left: 50%; transform: translate(-30%, -50%); pointer-events: none; transition: background 0.5s; }
+    .hero-grid-bg { position: absolute; inset: 0; background-image: linear-gradient(rgba(124,92,252,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(124,92,252,0.04) 1px, transparent 1px); background-size: 60px 60px; }
+    .hero-glow { position: absolute; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(124,92,252,0.12) 0%, transparent 70%); top: 50%; left: 50%; transform: translate(-30%, -50%); pointer-events: none; }
     .hero-content { max-width: 800px; position: relative; }
-    .hero-tag { font-family: var(--mono); font-size: 0.75rem; color: var(--accent2-dev); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 1.5rem; opacity: 0; animation: fadeUp 0.6s ease 0.2s forwards; transition: color 0.4s; }
-    body.mode-art .hero-tag { color: var(--accent2-art); }
+    .hero-tag { font-family: var(--mono); font-size: 0.75rem; color: var(--accent2-dev); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 1.5rem; opacity: 0; animation: fadeUp 0.6s ease 0.2s forwards; }
     .hero-title { font-family: var(--sans); font-size: clamp(3rem, 7vw, 6rem); font-weight: 800; line-height: 1.0; letter-spacing: -0.03em; margin-bottom: 1.5rem; opacity: 0; animation: fadeUp 0.7s ease 0.35s forwards; }
     .line2-dev { background: linear-gradient(90deg, #7c5cfc, #00e5c0); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
     .line2-art { background: linear-gradient(90deg, #fc5c9c, #ffb347); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; display: none; }
@@ -85,9 +75,8 @@
     .btn-primary:hover { transform: translateY(-2px); }
     .btn-outline { padding: 0.9rem 2rem; border: 1px solid var(--border); color: var(--muted); font-family: var(--mono); font-size: 0.8rem; letter-spacing: 0.1em; text-decoration: none; border-radius: 4px; transition: border-color 0.2s, color 0.2s; }
     .btn-outline:hover { border-color: var(--accent-dev); color: var(--text); }
-    body.mode-art .btn-outline:hover { border-color: var(--accent-art); }
     .hero-scroll { position: absolute; bottom: 2.5rem; left: 4rem; display: flex; align-items: center; gap: 0.75rem; font-family: var(--mono); font-size: 0.7rem; color: var(--muted); letter-spacing: 0.15em; text-transform: uppercase; opacity: 0; animation: fadeIn 1s ease 1.2s forwards; }
-    .scroll-line { width: 40px; height: 1px; background: linear-gradient(90deg, var(--accent-dev), transparent); animation: scrollPulse 2s ease-in-out infinite; transition: background 0.4s; }
+    .scroll-line { width: 40px; height: 1px; background: linear-gradient(90deg, var(--accent-dev), transparent); animation: scrollPulse 2s ease-in-out infinite; }
 
     /* Section layout */
     .section-inner { max-width: 1100px; margin: 0 auto; padding: 7rem 4rem; }
@@ -96,20 +85,37 @@
     .section-label-art { color: var(--accent2-art); }
     .section-title { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 3.5rem; line-height: 1.1; }
 
-    /* About Dev */
+    /* About */
     .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
     .about-text p { font-family: var(--mono); font-size: 0.88rem; color: var(--muted); line-height: 2; margin-bottom: 1.2rem; }
-    .about-text p strong { font-weight: 400; }
-    .strong-dev { color: var(--accent2-dev); }
-    .strong-art { color: var(--accent2-art); }
+    .strong-dev { color: var(--accent2-dev); font-weight: 400; }
+    .strong-art { color: var(--accent2-art); font-weight: 400; }
     .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
     .stat-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; transition: border-color 0.3s, transform 0.3s; }
     .stat-card:hover { transform: translateY(-4px); }
     .stat-card-dev:hover { border-color: var(--accent-dev); }
     .stat-card-art:hover { border-color: var(--accent-art); }
-    .stat-number { font-size: 2.2rem; font-weight: 800; line-height: 1; margin-bottom: 0.4rem; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-    .stat-number-dev { background: linear-gradient(135deg, var(--accent-dev), var(--accent2-dev)); }
-    .stat-number-art { background: linear-gradient(135deg, var(--accent-art), var(--accent2-art)); }
+
+    /* ── BUG 3 FIX : stat numbers avec couleur solide + pseudo-element pour le dégradé ── */
+    .stat-number {
+      font-size: 2.2rem; font-weight: 800; line-height: 1; margin-bottom: 0.4rem;
+      display: inline-block;
+    }
+    .stat-number-dev {
+      background: linear-gradient(135deg, var(--accent-dev), var(--accent2-dev));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: var(--accent-dev); /* fallback */
+    }
+    .stat-number-art {
+      background: linear-gradient(135deg, var(--accent-art), var(--accent2-art));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: var(--accent-art); /* fallback */
+    }
+
     .stat-label { font-family: var(--mono); font-size: 0.72rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
 
     /* Skills */
@@ -119,7 +125,7 @@
     .skill-group-icon { font-size: 1.5rem; margin-bottom: 1rem; }
     .skill-group-title { font-family: var(--mono); font-size: 0.8rem; color: var(--accent2-dev); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1.2rem; }
     .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-    .skill-tag { font-family: var(--mono); font-size: 0.72rem; padding: 0.3rem 0.75rem; background: rgba(124,92,252,0.1); border: 1px solid rgba(124,92,252,0.2); border-radius: 3px; color: var(--text); letter-spacing: 0.05em; transition: background 0.2s, border-color 0.2s; }
+    .skill-tag { font-family: var(--mono); font-size: 0.72rem; padding: 0.3rem 0.75rem; background: rgba(124,92,252,0.1); border: 1px solid rgba(124,92,252,0.2); border-radius: 3px; color: var(--text); transition: background 0.2s, border-color 0.2s; }
     .skill-tag:hover { background: rgba(124,92,252,0.2); border-color: var(--accent-dev); }
 
     /* Projects */
@@ -130,7 +136,7 @@
     .project-card:hover { border-color: rgba(124,92,252,0.4); transform: translateY(-6px); box-shadow: 0 24px 48px rgba(0,0,0,0.5); }
     .project-card.featured { grid-column: span 2; }
     .project-number { font-family: var(--mono); font-size: 0.7rem; color: var(--accent-dev); letter-spacing: 0.1em; margin-bottom: 1rem; }
-    .project-name { font-size: 1.4rem; font-weight: 800; margin-bottom: 0.75rem; letter-spacing: -0.01em; }
+    .project-name { font-size: 1.4rem; font-weight: 800; margin-bottom: 0.75rem; }
     .project-desc { font-family: var(--mono); font-size: 0.82rem; color: var(--muted); line-height: 1.8; margin-bottom: 1.5rem; }
     .project-tech { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem; }
     .tech-badge { font-family: var(--mono); font-size: 0.68rem; padding: 0.25rem 0.6rem; background: rgba(0,229,192,0.08); border: 1px solid rgba(0,229,192,0.2); border-radius: 3px; color: var(--accent2-dev); }
@@ -173,22 +179,18 @@
     .lightbox-close { position: absolute; top: 1rem; right: 1rem; width: 36px; height: 36px; background: rgba(255,255,255,0.1); border: none; border-radius: 50%; color: white; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; cursor: none; transition: background 0.2s; z-index: 10; }
     .lightbox-close:hover { background: rgba(252,92,156,0.4); }
 
-    /* Mode flash */
     .mode-flash { position: fixed; inset: 0; z-index: 500; pointer-events: none; opacity: 0; transition: opacity 0.2s; }
     .mode-flash.flash { opacity: 1; }
 
-    /* Animations */
     @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     @keyframes scrollPulse { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
     .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
 
-    /* Footer */
     footer { background: var(--bg); border-top: 1px solid var(--border); padding: 3rem 4rem; text-align: center; position: relative; z-index: 1; }
     .footer-text { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); letter-spacing: 0.1em; }
 
-    /* Responsive */
     @media (max-width: 900px) {
       nav { padding: 1rem 1.5rem; }
       .nav-right { gap: 1rem; }
@@ -218,7 +220,6 @@
   <div class="cursor-ring" id="cursorRing"></div>
   <div class="mode-flash" id="modeFlash"></div>
 
-  <!-- NAV -->
   <nav>
     <div class="nav-logo" id="navLogo">&lt;<span id="navLogoSpan">dev</span>/&gt;</div>
     <div class="nav-right">
@@ -238,7 +239,6 @@
     </div>
   </nav>
 
-  <!-- HERO (commun) -->
   <section id="hero">
     <div class="hero-grid-bg"></div>
     <div class="hero-glow"></div>
@@ -272,10 +272,22 @@
             <p>J'adore la création de <strong class="strong-dev">monde</strong> c'est pourquoi faire des jeux-vidéos me passionne.</p>
           </div>
           <div class="about-stats reveal">
-            <div class="stat-card stat-card-dev"><div class="stat-number stat-number-dev">3+</div><div class="stat-label">Ans d'expérience</div></div>
-            <div class="stat-card stat-card-dev"><div class="stat-number stat-number-dev">5</div><div class="stat-label">Projets en développement</div></div>
-            <div class="stat-card stat-card-dev"><div class="stat-number stat-number-dev">10+</div><div class="stat-label">Collaborateurs</div></div>
-            <div class="stat-card stat-card-dev"><div class="stat-number stat-number-dev">∞</div><div class="stat-label">Curiosité</div></div>
+            <div class="stat-card stat-card-dev">
+              <div class="stat-number stat-number-dev">3+</div>
+              <div class="stat-label">Ans d'expérience</div>
+            </div>
+            <div class="stat-card stat-card-dev">
+              <div class="stat-number stat-number-dev">5</div>
+              <div class="stat-label">Projets en développement</div>
+            </div>
+            <div class="stat-card stat-card-dev">
+              <div class="stat-number stat-number-dev">10+</div>
+              <div class="stat-label">Collaborateurs</div>
+            </div>
+            <div class="stat-card stat-card-dev">
+              <div class="stat-number stat-number-dev">∞</div>
+              <div class="stat-label">Curiosité</div>
+            </div>
           </div>
         </div>
       </div>
@@ -288,9 +300,10 @@
         <div class="skills-grid">
           <div class="skill-group reveal">
             <div class="skill-group-icon">🖥️</div>
-            <div class="skill-group-title">HTML / CSS</div>
+            <div class="skill-group-title">Web</div>
             <div class="skill-tags">
-              <span class="skill-tag">HTML / CSS</span><span class="skill-tag">JavaScript</span>
+              <span class="skill-tag">HTML / CSS</span>
+              <span class="skill-tag">JavaScript</span>
               <span class="skill-tag">Python</span>
             </div>
           </div>
@@ -299,15 +312,19 @@
             <div class="skill-group-title">Roblox Studio</div>
             <div class="skill-tags">
               <span class="skill-tag">Scripter</span>
-              <span class="skill-tag">Builder</span><span class="skill-tag">UIDesign</span><span class="skill-tag">Luau</span>
+              <span class="skill-tag">Builder</span>
+              <span class="skill-tag">UI Design</span>
+              <span class="skill-tag">Luau</span>
             </div>
           </div>
           <div class="skill-group reveal">
             <div class="skill-group-icon">🛠️</div>
-            <div class="skill-group-title">Outils & DevOps</div>
+            <div class="skill-group-title">Outils</div>
             <div class="skill-tags">
-              <span class="skill-tag">Git / GitHub</span><span class="skill-tag">Docker</span>
-              <span class="skill-tag">CI/CD</span><span class="skill-tag">Linux</span><span class="skill-tag">Figma</span>
+              <span class="skill-tag">Git / GitHub</span>
+              <span class="skill-tag">Docker</span>
+              <span class="skill-tag">Linux</span>
+              <span class="skill-tag">Figma</span>
             </div>
           </div>
         </div>
@@ -317,29 +334,47 @@
     <section id="projects" style="background:var(--surface);border-top:1px solid var(--border)">
       <div class="section-inner">
         <p class="section-label section-label-dev reveal">// 03 — Projets</p>
-        <h2 class="section-title reveal">Ce que je fait en ce moment</h2>
+        <h2 class="section-title reveal">Ce que je fais en ce moment</h2>
         <div class="projects-grid">
+
+          <!-- ✅ Projet 1 — correctement fermé -->
           <div class="project-card featured reveal">
             <div class="project-number">01 — Projet phare</div>
             <h3 class="project-name">BOBBY</h3>
             <p class="project-desc">Bobby est un jeu Roblox que je développe avec mon groupe : <strong class="strong-dev">Croquettes Studio</strong></p>
-            <div class="project-tech"><span class="tech-badge">Roblox Studio</span><span class="tech-badge">Luau</span><span class="tech-badge"><span class="tech-badge">En cours</span><span class="tech-badge">
+            <div class="project-tech">
+              <span class="tech-badge">Roblox Studio</span>
+              <span class="tech-badge">Luau</span>
+              <span class="tech-badge">En cours</span>
+            </div>
             <a href="https://discord.gg/uJD6PMc2Yd" class="project-link">Serveur discord →</a>
           </div>
+
+          <!-- ✅ Projet 2 -->
           <div class="project-card reveal">
             <div class="project-number">02</div>
             <h3 class="project-name">Deep Dive</h3>
-            <p class="project-desc">Deep Dive est égalemnt un jeu roblox que je développe avec mon groupe.</p>
-            <div class="project-tech"><span class="tech-badge">Roblox</span><span class="tech-badge">Luau</span><span class="tech-badge">En cours</span></div>
+            <p class="project-desc">Deep Dive est également un jeu Roblox que je développe avec mon groupe.</p>
+            <div class="project-tech">
+              <span class="tech-badge">Roblox</span>
+              <span class="tech-badge">Luau</span>
+              <span class="tech-badge">En cours</span>
+            </div>
             <a href="https://discord.gg/uJD6PMc2Yd" class="project-link">Serveur discord →</a>
           </div>
+
+          <!-- ✅ Projet 3 -->
           <div class="project-card reveal">
             <div class="project-number">03</div>
-            <h3 class="project-name">CatAI - Bot discord</h3>
-            <p class="project-desc">Bot discord intégrant une intelligence articielle à un serveur discord, le tout basé sur un chat.</p>
-            <div class="project-tech"><span class="tech-badge">JavaScript</span><span class="tech-badge">Node.js</span><span class="tech-badge">En cours</span></div>
-            <br>
+            <h3 class="project-name">CatAI — Bot Discord</h3>
+            <p class="project-desc">Bot Discord intégrant une intelligence artificielle à un serveur Discord, le tout basé sur un chat.</p>
+            <div class="project-tech">
+              <span class="tech-badge">JavaScript</span>
+              <span class="tech-badge">Node.js</span>
+              <span class="tech-badge">En cours</span>
+            </div>
           </div>
+
         </div>
       </div>
     </section>
@@ -360,10 +395,22 @@
             <p>L'art et le code coexistent dans mon quotidien — deux langages différents pour raconter la même histoire.</p>
           </div>
           <div class="about-stats reveal">
-            <div class="stat-card stat-card-art"><div class="stat-number stat-number-art">50+</div><div class="stat-label">Œuvres créées</div></div>
-            <div class="stat-card stat-card-art"><div class="stat-number stat-number-art">3</div><div class="stat-label">Expositions</div></div>
-            <div class="stat-card stat-card-art"><div class="stat-number stat-number-art">2+</div><div class="stat-label">Ans de pratique</div></div>
-            <div class="stat-card stat-card-art"><div class="stat-number stat-number-art">✦</div><div class="stat-label">Style unique</div></div>
+            <div class="stat-card stat-card-art">
+              <div class="stat-number stat-number-art">50+</div>
+              <div class="stat-label">Œuvres créées</div>
+            </div>
+            <div class="stat-card stat-card-art">
+              <div class="stat-number stat-number-art">3</div>
+              <div class="stat-label">Expositions</div>
+            </div>
+            <div class="stat-card stat-card-art">
+              <div class="stat-number stat-number-art">2+</div>
+              <div class="stat-label">Ans de pratique</div>
+            </div>
+            <div class="stat-card stat-card-art">
+              <div class="stat-number stat-number-art">✦</div>
+              <div class="stat-label">Style unique</div>
+            </div>
           </div>
         </div>
       </div>
@@ -429,28 +476,23 @@
   </div>
 
   <footer>
-    <p class="footer-text" id="footerText">
+    <p class="footer-text">
       Fait avec <span id="footerHeart" style="color:var(--accent-dev)">♥</span> et beaucoup de café —
-      <span id="footerName" style="color:var(--accent-dev)">Ton Prénom</span> © 2026
+      <span id="footerName" style="color:var(--accent-dev)">ShilbyMegastre</span> © 2026
     </p>
   </footer>
 
   <script>
-    // ── Cursor ──
     const cursor = document.getElementById('cursor');
     const ring = document.getElementById('cursorRing');
     let mx = 0, my = 0, rx = 0, ry = 0;
     document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cursor.style.left = mx+'px'; cursor.style.top = my+'px'; });
     (function loop() { rx += (mx-rx)*0.12; ry += (my-ry)*0.12; ring.style.left = rx+'px'; ring.style.top = ry+'px'; requestAnimationFrame(loop); })();
-    function addHover(selector) {
-      document.querySelectorAll(selector).forEach(el => {
-        el.addEventListener('mouseenter', () => { cursor.style.transform='translate(-50%,-50%) scale(2)'; ring.style.width='60px'; ring.style.height='60px'; });
-        el.addEventListener('mouseleave', () => { cursor.style.transform='translate(-50%,-50%) scale(1)'; ring.style.width='36px'; ring.style.height='36px'; });
-      });
-    }
-    addHover('a, button, .project-card, .skill-group, .stat-card, .stat-card-art, .gallery-item, .mode-toggle');
+    document.querySelectorAll('a, button, .project-card, .skill-group, .stat-card, .gallery-item, .mode-toggle').forEach(el => {
+      el.addEventListener('mouseenter', () => { cursor.style.transform='translate(-50%,-50%) scale(2)'; ring.style.width='60px'; ring.style.height='60px'; });
+      el.addEventListener('mouseleave', () => { cursor.style.transform='translate(-50%,-50%) scale(1)'; ring.style.width='36px'; ring.style.height='36px'; });
+    });
 
-    // ── Scroll reveal ──
     const observer = new IntersectionObserver(entries => {
       entries.forEach((entry, i) => {
         if (entry.isIntersecting) setTimeout(() => entry.target.classList.add('visible'), i * 80);
@@ -461,70 +503,48 @@
     }
     initReveal();
 
-    // ── Mode toggle ──
     let mode = 'dev';
-    const body = document.body;
     const flash = document.getElementById('modeFlash');
 
     function switchMode(newMode) {
       if (newMode === mode) return;
       mode = newMode;
       const isArt = newMode === 'art';
-
-      // Flash
       flash.style.background = isArt ? 'rgba(252,92,156,0.07)' : 'rgba(124,92,252,0.07)';
       flash.classList.add('flash');
       setTimeout(() => flash.classList.remove('flash'), 300);
-
-      // Body class
-      body.classList.toggle('mode-art', isArt);
-
-      // Panels
+      document.body.classList.toggle('mode-art', isArt);
       document.getElementById('panelDev').style.display = isArt ? 'none' : 'block';
       document.getElementById('panelArt').style.display = isArt ? 'block' : 'none';
-
-      // Nav
       document.getElementById('navDev').style.display = isArt ? 'none' : 'flex';
       document.getElementById('navArt').style.display = isArt ? 'flex' : 'none';
-
-      // Logo
       document.getElementById('navLogoSpan').textContent = isArt ? 'art' : 'dev';
       document.getElementById('navLogo').style.color = isArt ? 'var(--accent-art)' : 'var(--accent-dev)';
-
-      // Toggle buttons
       document.getElementById('toggleDev').className = 'toggle-opt' + (isArt ? '' : ' active-dev');
       document.getElementById('toggleArt').className = 'toggle-opt' + (isArt ? ' active-art' : '');
-
-      // Hero
-      document.getElementById('heroTag').textContent = isArt ? '// Artiste & développeur·se' : '// Disponible pour de nouvelles opportunités';
+      document.getElementById('heroTag').textContent = isArt ? '// Artiste & développeur' : '// Développeur et artiste';
       document.getElementById('heroTag').style.color = isArt ? 'var(--accent2-art)' : 'var(--accent2-dev)';
       document.getElementById('heroSubtitle').textContent = isArt
-        ? 'Illustrateur·trice digital·e explorant la couleur, la lumière et les formes pour créer des univers visuels uniques.'
-        : "Développeur·se passionné·e par la création d'expériences digitales propres, performantes et mémorables.";
+        ? 'Illustrateur digital explorant la couleur, la lumière et les formes pour créer des univers visuels uniques.'
+        : 'Développeur passionné par la création';
       document.getElementById('heroCta1').href = isArt ? '#gallery' : '#projects';
       document.getElementById('heroCta1').textContent = isArt ? 'Voir mes illustrations →' : 'Voir mes projets →';
       document.getElementById('heroCta2').href = isArt ? '#about-art' : '#about';
       document.getElementById('heroNameDev').style.display = isArt ? 'none' : 'inline';
       document.getElementById('heroNameArt').style.display = isArt ? 'inline' : 'none';
-
-      // Cursor & ring color
       cursor.style.background = isArt ? 'var(--accent-art)' : 'var(--accent-dev)';
       ring.style.borderColor = isArt ? 'rgba(252,92,156,0.5)' : 'rgba(124,92,252,0.5)';
-
-      // Footer
       document.getElementById('footerHeart').style.color = isArt ? 'var(--accent-art)' : 'var(--accent-dev)';
       document.getElementById('footerHeart').textContent = isArt ? '✦' : '♥';
       document.getElementById('footerName').style.color = isArt ? 'var(--accent-art)' : 'var(--accent-dev)';
-
       window.scrollTo({ top: 0, behavior: 'smooth' });
       setTimeout(initReveal, 150);
     }
 
-    document.getElementById('toggleDev').addEventListener('click', (e) => { e.stopPropagation(); switchMode('dev'); });
-    document.getElementById('toggleArt').addEventListener('click', (e) => { e.stopPropagation(); switchMode('art'); });
+    document.getElementById('toggleDev').addEventListener('click', e => { e.stopPropagation(); switchMode('dev'); });
+    document.getElementById('toggleArt').addEventListener('click', e => { e.stopPropagation(); switchMode('art'); });
     document.getElementById('modeToggle').addEventListener('click', () => switchMode(mode === 'dev' ? 'art' : 'dev'));
 
-    // ── Gallery filters ──
     document.addEventListener('click', e => {
       if (!e.target.classList.contains('filter-btn')) return;
       document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
@@ -537,7 +557,6 @@
       });
     });
 
-    // ── Lightbox ──
     const lightbox = document.getElementById('lightbox');
     document.addEventListener('click', e => {
       const item = e.target.closest('.gallery-item');
