@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -7,60 +7,41 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --bg: #0a0a0f;
-      --surface: #111118;
-      --card: #16161f;
-      --border: #1e1e2e;
-      --accent-dev: #7c5cfc;
-      --accent2-dev: #00e5c0;
-      --accent-art: #fc5c9c;
-      --accent2-art: #ffb347;
-      --text: #e8e8f0;
-      --muted: #5a5a72;
-      --mono: 'Space Mono', monospace;
-      --sans: 'Syne', sans-serif;
+      --bg: #0a0a0f; --surface: #111118; --card: #16161f; --border: #1e1e2e;
+      --accent-dev: #7c5cfc; --accent2-dev: #00e5c0;
+      --accent-art: #fc5c9c; --accent2-art: #ffb347;
+      --text: #e8e8f0; --muted: #5a5a72;
+      --mono: 'Space Mono', monospace; --sans: 'Syne', sans-serif;
     }
-
     html { scroll-behavior: smooth; }
     body { background: var(--bg); color: var(--text); font-family: var(--sans); overflow-x: hidden; cursor: none; }
-
-    body.mode-art .hero-grid-bg {
-      background-image: linear-gradient(rgba(252,92,156,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(252,92,156,0.04) 1px, transparent 1px);
-    }
+    body.mode-art .hero-grid-bg { background-image: linear-gradient(rgba(252,92,156,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(252,92,156,0.04) 1px, transparent 1px); }
     body.mode-art .hero-glow { background: radial-gradient(circle, rgba(252,92,156,0.12) 0%, transparent 70%); }
     body.mode-art .btn-primary { background: var(--accent-art); box-shadow: 0 0 30px rgba(252,92,156,0.3); }
     body.mode-art .btn-primary:hover { background: #fd7db4; }
     body.mode-art .scroll-line { background: linear-gradient(90deg, var(--accent-art), transparent); }
-
-    /* Cursor */
     .cursor { position: fixed; width: 12px; height: 12px; background: var(--accent-dev); border-radius: 50%; pointer-events: none; z-index: 9999; transition: transform 0.15s ease, background 0.3s; transform: translate(-50%, -50%); }
     .cursor-ring { position: fixed; width: 36px; height: 36px; border: 1px solid rgba(124,92,252,0.5); border-radius: 50%; pointer-events: none; z-index: 9998; transition: transform 0.35s ease, width 0.3s, height 0.3s, border-color 0.3s; transform: translate(-50%, -50%); }
-
-    /* Noise */
     body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E"); pointer-events: none; z-index: 0; opacity: 0.4; }
-
-    /* Nav */
     nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 4rem; background: rgba(10,10,15,0.85); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); }
     .nav-logo { font-family: var(--mono); font-size: 1rem; color: var(--accent-dev); letter-spacing: 0.05em; transition: color 0.4s; }
-    .nav-right { display: flex; align-items: center; gap: 2.5rem; }
-    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-right { display: flex; align-items: center; gap: 1.5rem; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
     .nav-links a { font-family: var(--mono); font-size: 0.78rem; color: var(--muted); text-decoration: none; letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.2s; position: relative; }
     .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: var(--accent2-dev); transition: width 0.3s ease; }
     .nav-links a:hover { color: var(--text); }
     .nav-links a:hover::after { width: 100%; }
     .nav-art { display: none; }
-
-    /* Toggle */
     .mode-toggle { display: flex; align-items: center; background: var(--card); border: 1px solid var(--border); border-radius: 100px; padding: 4px; gap: 2px; cursor: none; user-select: none; }
     .toggle-opt { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.4rem 1rem; border-radius: 100px; color: var(--muted); transition: all 0.3s ease; white-space: nowrap; border: 1px solid transparent; }
     .toggle-opt.active-dev { background: rgba(124,92,252,0.15); color: var(--accent-dev); border-color: rgba(124,92,252,0.3); }
     .toggle-opt.active-art { background: rgba(252,92,156,0.15); color: var(--accent-art); border-color: rgba(252,92,156,0.3); }
-
+    .lang-toggle { display: flex; align-items: center; background: var(--card); border: 1px solid var(--border); border-radius: 100px; padding: 3px; gap: 2px; cursor: none; user-select: none; }
+    .lang-opt { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.1em; padding: 0.3rem 0.7rem; border-radius: 100px; color: var(--muted); transition: all 0.25s ease; border: 1px solid transparent; cursor: none; }
+    .lang-opt.active { background: rgba(0,229,192,0.12); color: var(--accent2-dev); border-color: rgba(0,229,192,0.25); }
+    body.mode-art .lang-opt.active { background: rgba(255,179,71,0.12); color: var(--accent2-art); border-color: rgba(255,179,71,0.25); }
     section { position: relative; z-index: 1; }
-
-    /* Hero */
     #hero { min-height: 100vh; display: flex; align-items: center; padding: 0 4rem; padding-top: 80px; overflow: hidden; }
     .hero-grid-bg { position: absolute; inset: 0; background-image: linear-gradient(rgba(124,92,252,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(124,92,252,0.04) 1px, transparent 1px); background-size: 60px 60px; }
     .hero-glow { position: absolute; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(124,92,252,0.12) 0%, transparent 70%); top: 50%; left: 50%; transform: translate(-30%, -50%); pointer-events: none; }
@@ -77,15 +58,11 @@
     .btn-outline:hover { border-color: var(--accent-dev); color: var(--text); }
     .hero-scroll { position: absolute; bottom: 2.5rem; left: 4rem; display: flex; align-items: center; gap: 0.75rem; font-family: var(--mono); font-size: 0.7rem; color: var(--muted); letter-spacing: 0.15em; text-transform: uppercase; opacity: 0; animation: fadeIn 1s ease 1.2s forwards; }
     .scroll-line { width: 40px; height: 1px; background: linear-gradient(90deg, var(--accent-dev), transparent); animation: scrollPulse 2s ease-in-out infinite; }
-
-    /* Section layout */
     .section-inner { max-width: 1100px; margin: 0 auto; padding: 7rem 4rem; }
     .section-label { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: 0.75rem; }
     .section-label-dev { color: var(--accent2-dev); }
     .section-label-art { color: var(--accent2-art); }
     .section-title { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 3.5rem; line-height: 1.1; }
-
-    /* About */
     .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
     .about-text p { font-family: var(--mono); font-size: 0.88rem; color: var(--muted); line-height: 2; margin-bottom: 1.2rem; }
     .strong-dev { color: var(--accent2-dev); font-weight: 400; }
@@ -95,30 +72,10 @@
     .stat-card:hover { transform: translateY(-4px); }
     .stat-card-dev:hover { border-color: var(--accent-dev); }
     .stat-card-art:hover { border-color: var(--accent-art); }
-
-    /* ── BUG 3 FIX : stat numbers avec couleur solide + pseudo-element pour le dégradé ── */
-    .stat-number {
-      font-size: 2.2rem; font-weight: 800; line-height: 1; margin-bottom: 0.4rem;
-      display: inline-block;
-    }
-    .stat-number-dev {
-      background: linear-gradient(135deg, var(--accent-dev), var(--accent2-dev));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      color: var(--accent-dev); /* fallback */
-    }
-    .stat-number-art {
-      background: linear-gradient(135deg, var(--accent-art), var(--accent2-art));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      color: var(--accent-art); /* fallback */
-    }
-
+    .stat-number { font-size: 2.2rem; font-weight: 800; line-height: 1; margin-bottom: 0.4rem; display: inline-block; }
+    .stat-number-dev { background: linear-gradient(135deg, var(--accent-dev), var(--accent2-dev)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: var(--accent-dev); }
+    .stat-number-art { background: linear-gradient(135deg, var(--accent-art), var(--accent2-art)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: var(--accent-art); }
     .stat-label { font-family: var(--mono); font-size: 0.72rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
-
-    /* Skills */
     .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
     .skill-group { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1.8rem; transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s; }
     .skill-group:hover { border-color: var(--accent-dev); transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
@@ -127,8 +84,6 @@
     .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
     .skill-tag { font-family: var(--mono); font-size: 0.72rem; padding: 0.3rem 0.75rem; background: rgba(124,92,252,0.1); border: 1px solid rgba(124,92,252,0.2); border-radius: 3px; color: var(--text); transition: background 0.2s, border-color 0.2s; }
     .skill-tag:hover { background: rgba(124,92,252,0.2); border-color: var(--accent-dev); }
-
-    /* Projects */
     .projects-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
     .project-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; position: relative; overflow: hidden; transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s; cursor: none; }
     .project-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--accent-dev), var(--accent2-dev)); transform: scaleX(0); transform-origin: left; transition: transform 0.4s ease; }
@@ -142,8 +97,6 @@
     .tech-badge { font-family: var(--mono); font-size: 0.68rem; padding: 0.25rem 0.6rem; background: rgba(0,229,192,0.08); border: 1px solid rgba(0,229,192,0.2); border-radius: 3px; color: var(--accent2-dev); }
     .project-link { font-family: var(--mono); font-size: 0.75rem; color: var(--accent-dev); text-decoration: none; letter-spacing: 0.1em; text-transform: uppercase; display: inline-flex; align-items: center; gap: 0.5rem; transition: gap 0.2s, color 0.2s; }
     .project-link:hover { gap: 0.9rem; color: var(--accent2-dev); }
-
-    /* Art Gallery */
     .gallery-filters { display: flex; gap: 0.75rem; margin-bottom: 3rem; flex-wrap: wrap; }
     .filter-btn { font-family: var(--mono); font-size: 0.72rem; padding: 0.45rem 1.1rem; border: 1px solid var(--border); background: transparent; color: var(--muted); border-radius: 3px; cursor: none; letter-spacing: 0.1em; text-transform: uppercase; transition: all 0.2s; }
     .filter-btn:hover, .filter-btn.active { border-color: var(--accent-art); color: var(--text); background: rgba(252,92,156,0.1); }
@@ -166,8 +119,6 @@
     .gallery-info { position: relative; z-index: 2; }
     .gallery-title { font-size: 0.9rem; font-weight: 600; margin-bottom: 0.2rem; }
     .gallery-meta { font-family: var(--mono); font-size: 0.68rem; color: var(--accent2-art); letter-spacing: 0.1em; }
-
-    /* Lightbox */
     .lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 1000; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.3s; backdrop-filter: blur(12px); }
     .lightbox.open { opacity: 1; pointer-events: all; }
     .lightbox-inner { max-width: 80vw; max-height: 80vh; border-radius: 12px; overflow: hidden; border: 1px solid var(--border); position: relative; }
@@ -178,22 +129,18 @@
     .lightbox-tag { font-family: var(--mono); font-size: 0.72rem; color: var(--accent2-art); }
     .lightbox-close { position: absolute; top: 1rem; right: 1rem; width: 36px; height: 36px; background: rgba(255,255,255,0.1); border: none; border-radius: 50%; color: white; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; cursor: none; transition: background 0.2s; z-index: 10; }
     .lightbox-close:hover { background: rgba(252,92,156,0.4); }
-
     .mode-flash { position: fixed; inset: 0; z-index: 500; pointer-events: none; opacity: 0; transition: opacity 0.2s; }
     .mode-flash.flash { opacity: 1; }
-
     @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     @keyframes scrollPulse { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
     .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
-
     footer { background: var(--bg); border-top: 1px solid var(--border); padding: 3rem 4rem; text-align: center; position: relative; z-index: 1; }
     .footer-text { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); letter-spacing: 0.1em; }
-
     @media (max-width: 900px) {
       nav { padding: 1rem 1.5rem; }
-      .nav-right { gap: 1rem; }
+      .nav-right { gap: 0.75rem; }
       .nav-links { gap: 1rem; }
       #hero { padding: 0 1.5rem; padding-top: 80px; }
       .hero-scroll { left: 1.5rem; }
@@ -211,11 +158,11 @@
       .gallery-grid { grid-template-columns: 1fr; }
       .gallery-item:nth-child(4), .gallery-item:nth-child(7) { grid-column: span 1; aspect-ratio: 1/1; }
       .toggle-opt { padding: 0.4rem 0.6rem; font-size: 0.6rem; }
+      .lang-opt { padding: 0.3rem 0.5rem; font-size: 0.6rem; }
     }
   </style>
 </head>
 <body>
-
   <div class="cursor" id="cursor"></div>
   <div class="cursor-ring" id="cursorRing"></div>
   <div class="mode-flash" id="modeFlash"></div>
@@ -224,17 +171,21 @@
     <div class="nav-logo" id="navLogo">&lt;<span id="navLogoSpan">dev</span>/&gt;</div>
     <div class="nav-right">
       <ul class="nav-links nav-dev" id="navDev">
-        <li><a href="#about">À propos</a></li>
-        <li><a href="#skills">Compétences</a></li>
-        <li><a href="#projects">Projets</a></li>
+        <li><a href="#about" id="navAboutDev">About</a></li>
+        <li><a href="#skills" id="navSkills">Skills</a></li>
+        <li><a href="#projects" id="navProjects">Projects</a></li>
       </ul>
       <ul class="nav-links nav-art" id="navArt">
-        <li><a href="#about-art">À propos</a></li>
-        <li><a href="#gallery">Galerie</a></li>
+        <li><a href="#about-art" id="navAboutArt">About</a></li>
+        <li><a href="#gallery" id="navGallery">Gallery</a></li>
       </ul>
       <div class="mode-toggle" id="modeToggle">
         <span class="toggle-opt active-dev" id="toggleDev">⌨ Dev</span>
         <span class="toggle-opt" id="toggleArt">✦ Art</span>
+      </div>
+      <div class="lang-toggle" id="langToggle">
+        <span class="lang-opt active" id="langEN">EN</span>
+        <span class="lang-opt" id="langFR">FR</span>
       </div>
     </div>
   </nav>
@@ -243,51 +194,37 @@
     <div class="hero-grid-bg"></div>
     <div class="hero-glow"></div>
     <div class="hero-content">
-      <p class="hero-tag" id="heroTag">// Développeur et artiste</p>
+      <p class="hero-tag" id="heroTag"></p>
       <h1 class="hero-title">
-        Bonjour, je suis<br>
+        <span id="heroGreeting"></span><br>
         <span class="line2-dev" id="heroNameDev">ShilbyMegastre</span>
         <span class="line2-art" id="heroNameArt">ShilbyMegastre</span>
       </h1>
-      <p class="hero-subtitle" id="heroSubtitle">Développeur passionné par la création</p>
+      <p class="hero-subtitle" id="heroSubtitle"></p>
       <div class="hero-cta">
-        <a href="#projects" class="btn-primary" id="heroCta1">Voir mes projets →</a>
-        <a href="#about" class="btn-outline" id="heroCta2">En savoir plus</a>
+        <a href="#projects" class="btn-primary" id="heroCta1"></a>
+        <a href="#about" class="btn-outline" id="heroCta2"></a>
       </div>
     </div>
-    <div class="hero-scroll"><div class="scroll-line"></div>Scroll</div>
+    <div class="hero-scroll"><div class="scroll-line"></div><span id="scrollLabel">Scroll</span></div>
   </section>
 
-  <!-- ════════ PANEL DEV ════════ -->
   <div id="panelDev">
-
     <section id="about" style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
       <div class="section-inner">
         <div class="about-grid">
           <div class="about-text reveal">
-            <p class="section-label section-label-dev">// 01 — À propos</p>
-            <h2 class="section-title">Qui suis-je ?</h2>
-            <p>Je suis un apprenti développeur.</p>
-            <p>Passionné par le <strong class="strong-dev">code</strong> mais surtout par la possibilité de rendre concret une idée abstraite grâce à celui-ci.</p>
-            <p>J'adore la création de <strong class="strong-dev">monde</strong> c'est pourquoi faire des jeux-vidéos me passionne.</p>
+            <p class="section-label section-label-dev" id="aboutLabelDev"></p>
+            <h2 class="section-title" id="aboutTitleDev"></h2>
+            <p id="aboutP1Dev"></p>
+            <p id="aboutP2Dev"></p>
+            <p id="aboutP3Dev"></p>
           </div>
           <div class="about-stats reveal">
-            <div class="stat-card stat-card-dev">
-              <div class="stat-number stat-number-dev">3+</div>
-              <div class="stat-label">Ans d'expérience</div>
-            </div>
-            <div class="stat-card stat-card-dev">
-              <div class="stat-number stat-number-dev">5</div>
-              <div class="stat-label">Projets en développement</div>
-            </div>
-            <div class="stat-card stat-card-dev">
-              <div class="stat-number stat-number-dev">10+</div>
-              <div class="stat-label">Collaborateurs</div>
-            </div>
-            <div class="stat-card stat-card-dev">
-              <div class="stat-number stat-number-dev">∞</div>
-              <div class="stat-label">Curiosité</div>
-            </div>
+            <div class="stat-card stat-card-dev"><div class="stat-number stat-number-dev">3+</div><div class="stat-label" id="stat1Label"></div></div>
+            <div class="stat-card stat-card-dev"><div class="stat-number stat-number-dev">5</div><div class="stat-label" id="stat2Label"></div></div>
+            <div class="stat-card stat-card-dev"><div class="stat-number stat-number-dev">10+</div><div class="stat-label" id="stat3Label"></div></div>
+            <div class="stat-card stat-card-dev"><div class="stat-number stat-number-dev">&#8734;</div><div class="stat-label" id="stat4Label"></div></div>
           </div>
         </div>
       </div>
@@ -295,37 +232,23 @@
 
     <section id="skills" style="background:var(--bg)">
       <div class="section-inner">
-        <p class="section-label section-label-dev reveal">// 02 — Compétences</p>
-        <h2 class="section-title reveal">Mes principales compétences</h2>
+        <p class="section-label section-label-dev reveal" id="skillsLabel"></p>
+        <h2 class="section-title reveal" id="skillsTitle"></h2>
         <div class="skills-grid">
           <div class="skill-group reveal">
-            <div class="skill-group-icon">🖥️</div>
+            <div class="skill-group-icon">&#128187;</div>
             <div class="skill-group-title">Web</div>
-            <div class="skill-tags">
-              <span class="skill-tag">HTML / CSS</span>
-              <span class="skill-tag">JavaScript</span>
-              <span class="skill-tag">Python</span>
-            </div>
+            <div class="skill-tags"><span class="skill-tag">HTML / CSS</span><span class="skill-tag">JavaScript</span><span class="skill-tag">Python</span></div>
           </div>
           <div class="skill-group reveal">
-            <div class="skill-group-icon">⚙️</div>
+            <div class="skill-group-icon">&#9881;</div>
             <div class="skill-group-title">Roblox Studio</div>
-            <div class="skill-tags">
-              <span class="skill-tag">Scripter</span>
-              <span class="skill-tag">Builder</span>
-              <span class="skill-tag">UI Design</span>
-              <span class="skill-tag">Luau</span>
-            </div>
+            <div class="skill-tags"><span class="skill-tag">Scripter</span><span class="skill-tag">Builder</span><span class="skill-tag">UI Design</span><span class="skill-tag">Luau</span></div>
           </div>
           <div class="skill-group reveal">
-            <div class="skill-group-icon">🛠️</div>
-            <div class="skill-group-title">Outils</div>
-            <div class="skill-tags">
-              <span class="skill-tag">Git / GitHub</span>
-              <span class="skill-tag">Docker</span>
-              <span class="skill-tag">Linux</span>
-              <span class="skill-tag">Figma</span>
-            </div>
+            <div class="skill-group-icon">&#128296;</div>
+            <div class="skill-group-title" id="toolsGroupTitle"></div>
+            <div class="skill-tags"><span class="skill-tag">Git / GitHub</span><span class="skill-tag">Docker</span><span class="skill-tag">Linux</span><span class="skill-tag">Figma</span></div>
           </div>
         </div>
       </div>
@@ -333,84 +256,50 @@
 
     <section id="projects" style="background:var(--surface);border-top:1px solid var(--border)">
       <div class="section-inner">
-        <p class="section-label section-label-dev reveal">// 03 — Projets</p>
-        <h2 class="section-title reveal">Ce que je fais en ce moment</h2>
+        <p class="section-label section-label-dev reveal" id="projectsLabel"></p>
+        <h2 class="section-title reveal" id="projectsTitle"></h2>
         <div class="projects-grid">
-
-          <!-- ✅ Projet 1 — correctement fermé -->
           <div class="project-card featured reveal">
-            <div class="project-number">01 — Projet phare</div>
+            <div class="project-number" id="p1Number"></div>
             <h3 class="project-name">BOBBY</h3>
-            <p class="project-desc">Bobby est un jeu Roblox que je développe avec mon groupe : <strong class="strong-dev">Croquettes Studio</strong></p>
-            <div class="project-tech">
-              <span class="tech-badge">Roblox Studio</span>
-              <span class="tech-badge">Luau</span>
-              <span class="tech-badge">En cours</span>
-            </div>
-            <a href="https://discord.gg/uJD6PMc2Yd" class="project-link">Serveur discord →</a>
+            <p class="project-desc" id="p1Desc"></p>
+            <div class="project-tech"><span class="tech-badge">Roblox Studio</span><span class="tech-badge">Luau</span><span class="tech-badge" id="p1Status"></span></div>
+            <a href="https://discord.gg/uJD6PMc2Yd" class="project-link" id="p1Link"></a>
           </div>
-
-          <!-- ✅ Projet 2 -->
           <div class="project-card reveal">
             <div class="project-number">02</div>
             <h3 class="project-name">Deep Dive</h3>
-            <p class="project-desc">Deep Dive est également un jeu Roblox que je développe avec mon groupe.</p>
-            <div class="project-tech">
-              <span class="tech-badge">Roblox</span>
-              <span class="tech-badge">Luau</span>
-              <span class="tech-badge">En cours</span>
-            </div>
-            <a href="https://discord.gg/uJD6PMc2Yd" class="project-link">Serveur discord →</a>
+            <p class="project-desc" id="p2Desc"></p>
+            <div class="project-tech"><span class="tech-badge">Roblox</span><span class="tech-badge">Luau</span><span class="tech-badge" id="p2Status"></span></div>
+            <a href="https://discord.gg/uJD6PMc2Yd" class="project-link" id="p2Link"></a>
           </div>
-
-          <!-- ✅ Projet 3 -->
           <div class="project-card reveal">
             <div class="project-number">03</div>
-            <h3 class="project-name">CatAI — Bot Discord</h3>
-            <p class="project-desc">Bot Discord intégrant une intelligence artificielle à un serveur Discord, le tout basé sur un chat.</p>
-            <div class="project-tech">
-              <span class="tech-badge">JavaScript</span>
-              <span class="tech-badge">Node.js</span>
-              <span class="tech-badge">En cours</span>
-            </div>
+            <h3 class="project-name">CatAI &mdash; Bot Discord</h3>
+            <p class="project-desc" id="p3Desc"></p>
+            <div class="project-tech"><span class="tech-badge">JavaScript</span><span class="tech-badge">Node.js</span><span class="tech-badge" id="p3Status"></span></div>
           </div>
-
         </div>
       </div>
     </section>
+  </div>
 
-  </div><!-- /panelDev -->
-
-  <!-- ════════ PANEL ART ════════ -->
   <div id="panelArt" style="display:none">
-
     <section id="about-art" style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
       <div class="section-inner">
         <div class="about-grid">
           <div class="about-text reveal">
-            <p class="section-label section-label-art">// 01 — À propos</p>
-            <h2 class="section-title">Ma démarche artistique</h2>
-            <p>Je crée des <strong class="strong-art">illustrations digitales</strong> qui explorent la frontière entre le monde numérique et l'imaginaire.</p>
-            <p>Chaque œuvre naît d'une émotion, d'une texture ou d'une idée abstraite que je traduis en <strong class="strong-art">formes, couleurs et lumières</strong>.</p>
-            <p>L'art et le code coexistent dans mon quotidien — deux langages différents pour raconter la même histoire.</p>
+            <p class="section-label section-label-art" id="aboutLabelArt"></p>
+            <h2 class="section-title" id="aboutTitleArt"></h2>
+            <p id="aboutP1Art"></p>
+            <p id="aboutP2Art"></p>
+            <p id="aboutP3Art"></p>
           </div>
           <div class="about-stats reveal">
-            <div class="stat-card stat-card-art">
-              <div class="stat-number stat-number-art">50+</div>
-              <div class="stat-label">Œuvres créées</div>
-            </div>
-            <div class="stat-card stat-card-art">
-              <div class="stat-number stat-number-art">3</div>
-              <div class="stat-label">Expositions</div>
-            </div>
-            <div class="stat-card stat-card-art">
-              <div class="stat-number stat-number-art">2+</div>
-              <div class="stat-label">Ans de pratique</div>
-            </div>
-            <div class="stat-card stat-card-art">
-              <div class="stat-number stat-number-art">✦</div>
-              <div class="stat-label">Style unique</div>
-            </div>
+            <div class="stat-card stat-card-art"><div class="stat-number stat-number-art">50+</div><div class="stat-label" id="artStat1"></div></div>
+            <div class="stat-card stat-card-art"><div class="stat-number stat-number-art">3</div><div class="stat-label" id="artStat2"></div></div>
+            <div class="stat-card stat-card-art"><div class="stat-number stat-number-art">2+</div><div class="stat-label" id="artStat3"></div></div>
+            <div class="stat-card stat-card-art"><div class="stat-number stat-number-art">&#10022;</div><div class="stat-label" id="artStat4"></div></div>
           </div>
         </div>
       </div>
@@ -418,53 +307,51 @@
 
     <section id="gallery" style="background:var(--bg)">
       <div class="section-inner">
-        <p class="section-label section-label-art reveal">// 02 — Galerie</p>
-        <h2 class="section-title reveal">Illustrations</h2>
+        <p class="section-label section-label-art reveal" id="galleryLabel"></p>
+        <h2 class="section-title reveal" id="galleryTitle"></h2>
         <div class="gallery-filters reveal">
-          <button class="filter-btn active" data-filter="all">Tout</button>
-          <button class="filter-btn" data-filter="digital">Digital</button>
-          <button class="filter-btn" data-filter="concept">Concept Art</button>
-          <button class="filter-btn" data-filter="perso">Personnel</button>
+          <button class="filter-btn active" data-filter="all" id="filterAll"></button>
+          <button class="filter-btn" data-filter="digital" id="filterDigital"></button>
+          <button class="filter-btn" data-filter="concept" id="filterConcept"></button>
+          <button class="filter-btn" data-filter="perso" id="filterPerso"></button>
         </div>
         <div class="gallery-grid">
           <div class="gallery-item reveal" data-category="digital">
             <div class="art-placeholder"><svg class="art-shape" width="200" height="200" viewBox="0 0 200 200"><circle cx="100" cy="100" r="80" fill="white"/><circle cx="100" cy="100" r="50" fill="none" stroke="white" stroke-width="2"/></svg></div>
-            <div class="gallery-overlay"><div class="gallery-info"><div class="gallery-title">Illustration #1</div><div class="gallery-meta">Digital — 2025</div></div></div>
+            <div class="gallery-overlay"><div class="gallery-info"><div class="gallery-title" data-gkey="illustration1"></div><div class="gallery-meta">Digital &mdash; 2025</div></div></div>
           </div>
           <div class="gallery-item reveal" data-category="concept">
             <div class="art-placeholder"><svg class="art-shape" width="200" height="200" viewBox="0 0 200 200"><polygon points="100,10 190,190 10,190" fill="white"/></svg></div>
-            <div class="gallery-overlay"><div class="gallery-info"><div class="gallery-title">Concept Art #1</div><div class="gallery-meta">Concept — 2025</div></div></div>
+            <div class="gallery-overlay"><div class="gallery-info"><div class="gallery-title" data-gkey="concept1"></div><div class="gallery-meta">Concept &mdash; 2025</div></div></div>
           </div>
           <div class="gallery-item reveal" data-category="perso">
             <div class="art-placeholder"><svg class="art-shape" width="200" height="200" viewBox="0 0 200 200"><rect x="30" y="30" width="140" height="140" rx="20" fill="white"/></svg></div>
-            <div class="gallery-overlay"><div class="gallery-info"><div class="gallery-title">Série personnelle</div><div class="gallery-meta">Personnel — 2024</div></div></div>
+            <div class="gallery-overlay"><div class="gallery-info"><div class="gallery-title" data-gkey="personal1"></div><div class="gallery-meta">Personal &mdash; 2024</div></div></div>
           </div>
           <div class="gallery-item reveal" data-category="digital">
             <div class="art-placeholder"><svg class="art-shape" width="400" height="200" viewBox="0 0 400 200"><ellipse cx="200" cy="100" rx="180" ry="70" fill="white"/></svg></div>
-            <div class="gallery-overlay"><div class="gallery-info"><div class="gallery-title">Grande composition</div><div class="gallery-meta">Digital — 2025</div></div></div>
+            <div class="gallery-overlay"><div class="gallery-info"><div class="gallery-title" data-gkey="composition"></div><div class="gallery-meta">Digital &mdash; 2025</div></div></div>
           </div>
           <div class="gallery-item reveal" data-category="concept">
             <div class="art-placeholder"><svg class="art-shape" width="200" height="200" viewBox="0 0 200 200"><path d="M100 10 L150 80 L190 80 L160 120 L175 190 L100 150 L25 190 L40 120 L10 80 L50 80 Z" fill="white"/></svg></div>
-            <div class="gallery-overlay"><div class="gallery-info"><div class="gallery-title">Concept Art #2</div><div class="gallery-meta">Concept — 2024</div></div></div>
+            <div class="gallery-overlay"><div class="gallery-info"><div class="gallery-title" data-gkey="concept2"></div><div class="gallery-meta">Concept &mdash; 2024</div></div></div>
           </div>
           <div class="gallery-item reveal" data-category="perso">
             <div class="art-placeholder"><svg class="art-shape" width="200" height="200" viewBox="0 0 200 200"><circle cx="70" cy="70" r="50" fill="white"/><circle cx="130" cy="130" r="50" fill="white"/></svg></div>
-            <div class="gallery-overlay"><div class="gallery-info"><div class="gallery-title">Étude de forme</div><div class="gallery-meta">Personnel — 2024</div></div></div>
+            <div class="gallery-overlay"><div class="gallery-info"><div class="gallery-title" data-gkey="study"></div><div class="gallery-meta">Personal &mdash; 2024</div></div></div>
           </div>
           <div class="gallery-item reveal" data-category="digital">
             <div class="art-placeholder"><svg class="art-shape" width="400" height="200" viewBox="0 0 400 200"><path d="M0 100 Q100 20 200 100 Q300 180 400 100" fill="none" stroke="white" stroke-width="4"/><path d="M0 140 Q100 60 200 140 Q300 220 400 140" fill="none" stroke="white" stroke-width="2" opacity="0.5"/></svg></div>
-            <div class="gallery-overlay"><div class="gallery-info"><div class="gallery-title">Abstraction fluide</div><div class="gallery-meta">Digital — 2026</div></div></div>
+            <div class="gallery-overlay"><div class="gallery-info"><div class="gallery-title" data-gkey="fluid"></div><div class="gallery-meta">Digital &mdash; 2026</div></div></div>
           </div>
         </div>
       </div>
     </section>
+  </div>
 
-  </div><!-- /panelArt -->
-
-  <!-- Lightbox -->
   <div class="lightbox" id="lightbox">
     <div class="lightbox-inner">
-      <button class="lightbox-close" id="lightboxClose">✕</button>
+      <button class="lightbox-close" id="lightboxClose">&#x2715;</button>
       <div class="lightbox-content">
         <div class="lightbox-art" id="lightboxArt"></div>
         <div class="lightbox-info">
@@ -477,101 +364,253 @@
 
   <footer>
     <p class="footer-text">
-      Fait avec <span id="footerHeart" style="color:var(--accent-dev)">♥</span> et beaucoup de café —
-      <span id="footerName" style="color:var(--accent-dev)">ShilbyMegastre</span> © 2026
+      <span id="footerMade"></span> <span id="footerHeart" style="color:var(--accent-dev)">&#9829;</span> <span id="footerCoffee"></span> &mdash;
+      <span id="footerName" style="color:var(--accent-dev)">ShilbyMegastre</span> &copy; 2026
     </p>
   </footer>
 
   <script>
-    const cursor = document.getElementById('cursor');
-    const ring = document.getElementById('cursorRing');
-    let mx = 0, my = 0, rx = 0, ry = 0;
-    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cursor.style.left = mx+'px'; cursor.style.top = my+'px'; });
-    (function loop() { rx += (mx-rx)*0.12; ry += (my-ry)*0.12; ring.style.left = rx+'px'; ring.style.top = ry+'px'; requestAnimationFrame(loop); })();
-    document.querySelectorAll('a, button, .project-card, .skill-group, .stat-card, .gallery-item, .mode-toggle').forEach(el => {
-      el.addEventListener('mouseenter', () => { cursor.style.transform='translate(-50%,-50%) scale(2)'; ring.style.width='60px'; ring.style.height='60px'; });
-      el.addEventListener('mouseleave', () => { cursor.style.transform='translate(-50%,-50%) scale(1)'; ring.style.width='36px'; ring.style.height='36px'; });
-    });
-
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach((entry, i) => {
-        if (entry.isIntersecting) setTimeout(() => entry.target.classList.add('visible'), i * 80);
-      });
-    }, { threshold: 0.1 });
-    function initReveal() {
-      document.querySelectorAll('.reveal').forEach(el => { el.classList.remove('visible'); observer.observe(el); });
+  const T = {
+    en: {
+      greeting: "Hi, I'm",
+      heroTag: { dev: "// Developer & Artist", art: "// Artist & Developer" },
+      subtitle: {
+        dev: "Developer passionate about bringing abstract ideas to life.",
+        art: "Digital illustrator exploring color, light and form to build unique visual worlds."
+      },
+      cta1: { dev: "See my projects \u2192", art: "See my illustrations \u2192" },
+      cta2: "Learn more",
+      scroll: "Scroll",
+      nav: { about: "About", skills: "Skills", projects: "Projects", gallery: "Gallery" },
+      aboutLabel: { dev: "// 01 \u2014 About", art: "// 01 \u2014 About" },
+      aboutTitle: { dev: "Who am I?", art: "My artistic approach" },
+      aboutDev: [
+        "I'm an apprentice developer.",
+        "Passionate about <strong class='strong-dev'>code</strong> and its ability to turn abstract ideas into reality.",
+        "I love world-building, which is why making <strong class='strong-dev'>video games</strong> excites me."
+      ],
+      aboutArt: [
+        "I create <strong class='strong-art'>digital illustrations</strong> that explore the boundary between the digital world and imagination.",
+        "Each piece stems from an emotion or abstract idea I translate into <strong class='strong-art'>shapes, colors and light</strong>.",
+        "Art and code coexist in my daily life \u2014 two languages telling the same story."
+      ],
+      stats: { dev: ["Years of experience","Active projects","Collaborators","Curiosity"], art: ["Artworks created","Exhibitions","Years of practice","Unique style"] },
+      skillsLabel: "// 02 \u2014 Skills",
+      skillsTitle: "My main skills",
+      toolsGroup: "Tools",
+      projectsLabel: "// 03 \u2014 Projects",
+      projectsTitle: "What I'm working on",
+      p1Number: "01 \u2014 Featured",
+      p1Desc: "Bobby is a Roblox game I'm developing with my group: <strong class='strong-dev'>Croquettes Studio</strong>",
+      p2Desc: "Deep Dive is also a Roblox game I'm developing with my group.",
+      p3Desc: "A Discord bot integrating artificial intelligence into a server, chat-based.",
+      inProgress: "In progress",
+      discord: "Discord server \u2192",
+      galleryLabel: "// 02 \u2014 Gallery",
+      galleryTitle: "Illustrations",
+      filters: ["All","Digital","Concept Art","Personal"],
+      gallery: { illustration1:"Illustration #1", concept1:"Concept Art #1", personal1:"Personal Series", composition:"Large Composition", concept2:"Concept Art #2", study:"Shape Study", fluid:"Fluid Abstraction" },
+      footerMade: "Made with",
+      footerCoffee: "and lots of coffee"
+    },
+    fr: {
+      greeting: "Bonjour, je suis",
+      heroTag: { dev: "// D\u00e9veloppeur et artiste", art: "// Artiste & d\u00e9veloppeur" },
+      subtitle: {
+        dev: "D\u00e9veloppeur passionn\u00e9 par la cr\u00e9ation.",
+        art: "Illustrateur digital explorant la couleur, la lumi\u00e8re et les formes pour cr\u00e9er des univers visuels uniques."
+      },
+      cta1: { dev: "Voir mes projets \u2192", art: "Voir mes illustrations \u2192" },
+      cta2: "En savoir plus",
+      scroll: "Scroll",
+      nav: { about: "\u00c0 propos", skills: "Comp\u00e9tences", projects: "Projets", gallery: "Galerie" },
+      aboutLabel: { dev: "// 01 \u2014 \u00c0 propos", art: "// 01 \u2014 \u00c0 propos" },
+      aboutTitle: { dev: "Qui suis-je\u00a0?", art: "Ma d\u00e9marche artistique" },
+      aboutDev: [
+        "Je suis un apprenti d\u00e9veloppeur.",
+        "Passionn\u00e9 par le <strong class='strong-dev'>code</strong> et la possibilit\u00e9 de rendre concr\u00e8te une id\u00e9e abstraite gr\u00e2ce \u00e0 celui-ci.",
+        "J'adore la cr\u00e9ation de <strong class='strong-dev'>mondes</strong>, c'est pourquoi faire des jeux-vid\u00e9os me passionne."
+      ],
+      aboutArt: [
+        "Je cr\u00e9e des <strong class='strong-art'>illustrations digitales</strong> qui explorent la fronti\u00e8re entre le monde num\u00e9rique et l'imaginaire.",
+        "Chaque \u0153uvre na\u00eet d'une \u00e9motion ou d'une id\u00e9e abstraite que je traduis en <strong class='strong-art'>formes, couleurs et lumi\u00e8res</strong>.",
+        "L'art et le code coexistent dans mon quotidien \u2014 deux langages pour raconter la m\u00eame histoire."
+      ],
+      stats: { dev: ["Ans d'exp\u00e9rience","Projets en cours","Collaborateurs","Curiosit\u00e9"], art: ["\u0152uvres cr\u00e9\u00e9es","Expositions","Ans de pratique","Style unique"] },
+      skillsLabel: "// 02 \u2014 Comp\u00e9tences",
+      skillsTitle: "Mes principales comp\u00e9tences",
+      toolsGroup: "Outils",
+      projectsLabel: "// 03 \u2014 Projets",
+      projectsTitle: "Ce que je fais en ce moment",
+      p1Number: "01 \u2014 Projet phare",
+      p1Desc: "Bobby est un jeu Roblox que je d\u00e9veloppe avec mon groupe\u00a0: <strong class='strong-dev'>Croquettes Studio</strong>",
+      p2Desc: "Deep Dive est \u00e9galement un jeu Roblox que je d\u00e9veloppe avec mon groupe.",
+      p3Desc: "Bot Discord int\u00e9grant une intelligence artificielle \u00e0 un serveur Discord, bas\u00e9 sur un chat.",
+      inProgress: "En cours",
+      discord: "Serveur discord \u2192",
+      galleryLabel: "// 02 \u2014 Galerie",
+      galleryTitle: "Illustrations",
+      filters: ["Tout","Digital","Concept Art","Personnel"],
+      gallery: { illustration1:"Illustration #1", concept1:"Concept Art #1", personal1:"S\u00e9rie personnelle", composition:"Grande composition", concept2:"Concept Art #2", study:"\u00c9tude de forme", fluid:"Abstraction fluide" },
+      footerMade: "Fait avec",
+      footerCoffee: "et beaucoup de caf\u00e9"
     }
-    initReveal();
+  };
 
-    let mode = 'dev';
-    const flash = document.getElementById('modeFlash');
+  let lang = 'en', mode = 'dev';
+  function t() { return T[lang]; }
 
-    function switchMode(newMode) {
-      if (newMode === mode) return;
-      mode = newMode;
-      const isArt = newMode === 'art';
-      flash.style.background = isArt ? 'rgba(252,92,156,0.07)' : 'rgba(124,92,252,0.07)';
-      flash.classList.add('flash');
-      setTimeout(() => flash.classList.remove('flash'), 300);
-      document.body.classList.toggle('mode-art', isArt);
-      document.getElementById('panelDev').style.display = isArt ? 'none' : 'block';
-      document.getElementById('panelArt').style.display = isArt ? 'block' : 'none';
-      document.getElementById('navDev').style.display = isArt ? 'none' : 'flex';
-      document.getElementById('navArt').style.display = isArt ? 'flex' : 'none';
-      document.getElementById('navLogoSpan').textContent = isArt ? 'art' : 'dev';
-      document.getElementById('navLogo').style.color = isArt ? 'var(--accent-art)' : 'var(--accent-dev)';
-      document.getElementById('toggleDev').className = 'toggle-opt' + (isArt ? '' : ' active-dev');
-      document.getElementById('toggleArt').className = 'toggle-opt' + (isArt ? ' active-art' : '');
-      document.getElementById('heroTag').textContent = isArt ? '// Artiste & développeur' : '// Développeur et artiste';
-      document.getElementById('heroTag').style.color = isArt ? 'var(--accent2-art)' : 'var(--accent2-dev)';
-      document.getElementById('heroSubtitle').textContent = isArt
-        ? 'Illustrateur digital explorant la couleur, la lumière et les formes pour créer des univers visuels uniques.'
-        : 'Développeur passionné par la création';
-      document.getElementById('heroCta1').href = isArt ? '#gallery' : '#projects';
-      document.getElementById('heroCta1').textContent = isArt ? 'Voir mes illustrations →' : 'Voir mes projets →';
-      document.getElementById('heroCta2').href = isArt ? '#about-art' : '#about';
-      document.getElementById('heroNameDev').style.display = isArt ? 'none' : 'inline';
-      document.getElementById('heroNameArt').style.display = isArt ? 'inline' : 'none';
-      cursor.style.background = isArt ? 'var(--accent-art)' : 'var(--accent-dev)';
-      ring.style.borderColor = isArt ? 'rgba(252,92,156,0.5)' : 'rgba(124,92,252,0.5)';
-      document.getElementById('footerHeart').style.color = isArt ? 'var(--accent-art)' : 'var(--accent-dev)';
-      document.getElementById('footerHeart').textContent = isArt ? '✦' : '♥';
-      document.getElementById('footerName').style.color = isArt ? 'var(--accent-art)' : 'var(--accent-dev)';
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      setTimeout(initReveal, 150);
-    }
+  function applyLang() {
+    const tx = t();
+    const isArt = mode === 'art';
+    document.documentElement.lang = lang;
+    document.getElementById('heroGreeting').textContent = tx.greeting;
+    document.getElementById('heroTag').textContent = tx.heroTag[isArt ? 'art' : 'dev'];
+    document.getElementById('heroSubtitle').textContent = tx.subtitle[isArt ? 'art' : 'dev'];
+    document.getElementById('heroCta1').textContent = tx.cta1[isArt ? 'art' : 'dev'];
+    document.getElementById('heroCta2').textContent = tx.cta2;
+    document.getElementById('scrollLabel').textContent = tx.scroll;
+    // Nav
+    document.getElementById('navAboutDev').textContent = tx.nav.about;
+    document.getElementById('navAboutArt').textContent = tx.nav.about;
+    document.getElementById('navSkills').textContent = tx.nav.skills;
+    document.getElementById('navProjects').textContent = tx.nav.projects;
+    document.getElementById('navGallery').textContent = tx.nav.gallery;
+    // About Dev
+    document.getElementById('aboutLabelDev').textContent = tx.aboutLabel.dev;
+    document.getElementById('aboutTitleDev').textContent = tx.aboutTitle.dev;
+    document.getElementById('aboutP1Dev').innerHTML = tx.aboutDev[0];
+    document.getElementById('aboutP2Dev').innerHTML = tx.aboutDev[1];
+    document.getElementById('aboutP3Dev').innerHTML = tx.aboutDev[2];
+    tx.stats.dev.forEach((s,i) => document.getElementById('stat'+(i+1)+'Label').textContent = s);
+    // Skills
+    document.getElementById('skillsLabel').textContent = tx.skillsLabel;
+    document.getElementById('skillsTitle').textContent = tx.skillsTitle;
+    document.getElementById('toolsGroupTitle').textContent = tx.toolsGroup;
+    // Projects
+    document.getElementById('projectsLabel').textContent = tx.projectsLabel;
+    document.getElementById('projectsTitle').textContent = tx.projectsTitle;
+    document.getElementById('p1Number').textContent = tx.p1Number;
+    document.getElementById('p1Desc').innerHTML = tx.p1Desc;
+    document.getElementById('p1Status').textContent = tx.inProgress;
+    document.getElementById('p1Link').textContent = tx.discord;
+    document.getElementById('p2Desc').textContent = tx.p2Desc;
+    document.getElementById('p2Status').textContent = tx.inProgress;
+    document.getElementById('p2Link').textContent = tx.discord;
+    document.getElementById('p3Desc').textContent = tx.p3Desc;
+    document.getElementById('p3Status').textContent = tx.inProgress;
+    // About Art
+    document.getElementById('aboutLabelArt').textContent = tx.aboutLabel.art;
+    document.getElementById('aboutTitleArt').textContent = tx.aboutTitle.art;
+    document.getElementById('aboutP1Art').innerHTML = tx.aboutArt[0];
+    document.getElementById('aboutP2Art').innerHTML = tx.aboutArt[1];
+    document.getElementById('aboutP3Art').textContent = tx.aboutArt[2];
+    tx.stats.art.forEach((s,i) => document.getElementById('artStat'+(i+1)).textContent = s);
+    // Gallery
+    document.getElementById('galleryLabel').textContent = tx.galleryLabel;
+    document.getElementById('galleryTitle').textContent = tx.galleryTitle;
+    ['filterAll','filterDigital','filterConcept','filterPerso'].forEach((id,i) => document.getElementById(id).textContent = tx.filters[i]);
+    document.querySelectorAll('[data-gkey]').forEach(el => { el.textContent = tx.gallery[el.dataset.gkey] || ''; });
+    // Footer
+    document.getElementById('footerMade').textContent = tx.footerMade;
+    document.getElementById('footerCoffee').textContent = tx.footerCoffee;
+  }
 
-    document.getElementById('toggleDev').addEventListener('click', e => { e.stopPropagation(); switchMode('dev'); });
-    document.getElementById('toggleArt').addEventListener('click', e => { e.stopPropagation(); switchMode('art'); });
-    document.getElementById('modeToggle').addEventListener('click', () => switchMode(mode === 'dev' ? 'art' : 'dev'));
+  function switchLang(newLang) {
+    if (newLang === lang) return;
+    lang = newLang;
+    document.getElementById('langEN').classList.toggle('active', lang === 'en');
+    document.getElementById('langFR').classList.toggle('active', lang === 'fr');
+    applyLang();
+  }
 
-    document.addEventListener('click', e => {
-      if (!e.target.classList.contains('filter-btn')) return;
-      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-      e.target.classList.add('active');
-      const filter = e.target.dataset.filter;
-      document.querySelectorAll('.gallery-item').forEach(item => {
-        const show = filter === 'all' || item.dataset.category === filter;
-        item.style.opacity = show ? '1' : '0.2';
-        item.style.pointerEvents = show ? 'auto' : 'none';
-      });
+  // Cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; cursor.style.left=mx+'px'; cursor.style.top=my+'px'; });
+  (function loop(){ rx+=(mx-rx)*0.12; ry+=(my-ry)*0.12; ring.style.left=rx+'px'; ring.style.top=ry+'px'; requestAnimationFrame(loop); })();
+  document.querySelectorAll('a,button,.project-card,.skill-group,.stat-card,.gallery-item,.mode-toggle,.lang-toggle').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{ cursor.style.transform='translate(-50%,-50%) scale(2)'; ring.style.width='60px'; ring.style.height='60px'; });
+    el.addEventListener('mouseleave',()=>{ cursor.style.transform='translate(-50%,-50%) scale(1)'; ring.style.width='36px'; ring.style.height='36px'; });
+  });
+
+  // Scroll reveal
+  const obs = new IntersectionObserver(entries=>{
+    entries.forEach((e,i)=>{ if(e.isIntersecting) setTimeout(()=>e.target.classList.add('visible'),i*80); });
+  },{threshold:0.1});
+  function initReveal(){ document.querySelectorAll('.reveal').forEach(el=>{ el.classList.remove('visible'); obs.observe(el); }); }
+  initReveal();
+
+  // Mode toggle
+  const flash = document.getElementById('modeFlash');
+  function switchMode(newMode){
+    if(newMode===mode) return;
+    mode=newMode;
+    const isArt=newMode==='art';
+    flash.style.background=isArt?'rgba(252,92,156,0.07)':'rgba(124,92,252,0.07)';
+    flash.classList.add('flash'); setTimeout(()=>flash.classList.remove('flash'),300);
+    document.body.classList.toggle('mode-art',isArt);
+    document.getElementById('panelDev').style.display=isArt?'none':'block';
+    document.getElementById('panelArt').style.display=isArt?'block':'none';
+    document.getElementById('navDev').style.display=isArt?'none':'flex';
+    document.getElementById('navArt').style.display=isArt?'flex':'none';
+    document.getElementById('navLogoSpan').textContent=isArt?'art':'dev';
+    document.getElementById('navLogo').style.color=isArt?'var(--accent-art)':'var(--accent-dev)';
+    document.getElementById('toggleDev').className='toggle-opt'+(isArt?'':' active-dev');
+    document.getElementById('toggleArt').className='toggle-opt'+(isArt?' active-art':'');
+    document.getElementById('heroCta1').href=isArt?'#gallery':'#projects';
+    document.getElementById('heroCta2').href=isArt?'#about-art':'#about';
+    document.getElementById('heroNameDev').style.display=isArt?'none':'inline';
+    document.getElementById('heroNameArt').style.display=isArt?'inline':'none';
+    cursor.style.background=isArt?'var(--accent-art)':'var(--accent-dev)';
+    ring.style.borderColor=isArt?'rgba(252,92,156,0.5)':'rgba(124,92,252,0.5)';
+    document.getElementById('footerHeart').style.color=isArt?'var(--accent-art)':'var(--accent-dev)';
+    document.getElementById('footerHeart').textContent=isArt?'\u2736':'\u2665';
+    document.getElementById('footerName').style.color=isArt?'var(--accent-art)':'var(--accent-dev)';
+    applyLang();
+    window.scrollTo({top:0,behavior:'smooth'});
+    setTimeout(initReveal,150);
+  }
+  document.getElementById('toggleDev').addEventListener('click',e=>{e.stopPropagation();switchMode('dev');});
+  document.getElementById('toggleArt').addEventListener('click',e=>{e.stopPropagation();switchMode('art');});
+  document.getElementById('modeToggle').addEventListener('click',()=>switchMode(mode==='dev'?'art':'dev'));
+  document.getElementById('langEN').addEventListener('click',e=>{e.stopPropagation();switchLang('en');});
+  document.getElementById('langFR').addEventListener('click',e=>{e.stopPropagation();switchLang('fr');});
+  document.getElementById('langToggle').addEventListener('click',()=>switchLang(lang==='en'?'fr':'en'));
+
+  // Gallery filters
+  document.addEventListener('click',e=>{
+    if(!e.target.classList.contains('filter-btn')) return;
+    document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+    e.target.classList.add('active');
+    const filter=e.target.dataset.filter;
+    document.querySelectorAll('.gallery-item').forEach(item=>{
+      const show=filter==='all'||item.dataset.category===filter;
+      item.style.opacity=show?'1':'0.2';
+      item.style.pointerEvents=show?'auto':'none';
     });
+  });
 
-    const lightbox = document.getElementById('lightbox');
-    document.addEventListener('click', e => {
-      const item = e.target.closest('.gallery-item');
-      if (!item) return;
-      const art = item.querySelector('.art-placeholder').cloneNode(true);
-      art.style.cssText = 'width:100%;height:100%';
-      document.getElementById('lightboxArt').innerHTML = '';
-      document.getElementById('lightboxArt').appendChild(art);
-      document.getElementById('lightboxTitle').textContent = item.querySelector('.gallery-title').textContent;
-      document.getElementById('lightboxTag').textContent = item.querySelector('.gallery-meta').textContent;
-      lightbox.classList.add('open');
-    });
-    document.getElementById('lightboxClose').addEventListener('click', () => lightbox.classList.remove('open'));
-    lightbox.addEventListener('click', e => { if (e.target === lightbox) lightbox.classList.remove('open'); });
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') lightbox.classList.remove('open'); });
+  // Lightbox
+  const lightbox=document.getElementById('lightbox');
+  document.addEventListener('click',e=>{
+    const item=e.target.closest('.gallery-item');
+    if(!item) return;
+    const art=item.querySelector('.art-placeholder').cloneNode(true);
+    art.style.cssText='width:100%;height:100%';
+    document.getElementById('lightboxArt').innerHTML='';
+    document.getElementById('lightboxArt').appendChild(art);
+    document.getElementById('lightboxTitle').textContent=item.querySelector('.gallery-title').textContent;
+    document.getElementById('lightboxTag').textContent=item.querySelector('.gallery-meta').textContent;
+    lightbox.classList.add('open');
+  });
+  document.getElementById('lightboxClose').addEventListener('click',()=>lightbox.classList.remove('open'));
+  lightbox.addEventListener('click',e=>{if(e.target===lightbox)lightbox.classList.remove('open');});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')lightbox.classList.remove('open');});
+
+  // Init
+  applyLang();
   </script>
 </body>
 </html>
